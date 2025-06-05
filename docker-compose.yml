@@ -1,0 +1,68 @@
+services:
+    backend:
+        build:
+            context: .
+            dockerfile: ./.docker/backend/Dockerfile
+        restart: unless-stopped
+        tty: true
+        working_dir: /var/www
+        volumes:
+            - .:/var/www
+            - ./.docker/backend/php.ini:/usr/local/etc/php/php.ini
+        depends_on:
+            - db
+
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "80:80"
+        volumes:
+            - .:/var/www
+            - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+        depends_on:
+            - backend
+
+    db:
+        image: mysql:5.7
+        restart: 'unless-stopped'
+        environment:
+            MYSQL_DATABASE: 'test'
+            MYSQL_USER: 'test'
+            MYSQL_PASSWORD: 'test'
+            MYSQL_ROOT_PASSWORD: '12345678'
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./.docker/mysql/conf.d:/etc/mysql/conf.d
+            - dbdata:/var/lib/mysql
+
+
+    node:
+        build:
+            context: .
+            dockerfile: ./.docker/nodejs/Dockerfile
+        tty: true
+        restart: unless-stopped
+        ports:
+            - "5173:5173"
+        working_dir: /var/www
+        volumes:
+            - .:/var/www # Монтируем локальную папку в контейнер как /var/www
+
+    redis:
+        image: redis:7.2.3
+        restart: unless-stopped
+        volumes:
+            - ./.docker/redis/data:/root/redis
+            - ./.docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+        environment:
+            - REDIS_PASSWORD=redis-password
+            - REDIS_PORT=6379
+            - REDIS_DATABASES=16
+
+# Тома
+volumes:
+    dbdata:
+        driver: local
