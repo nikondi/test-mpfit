@@ -4,6 +4,8 @@
 Задача: Создать веб-приложение с использованием фреймворка Laravel (https://laravel.com/docs/9.x), которое включает
 управление товарами и заказами
 
+![Демонстрация](https://raw.githubusercontent.com/nikondi/test-mpfit/23d9694/demo.png)
+
 ## Документация
 
 ### Запуск приложения в Docker
