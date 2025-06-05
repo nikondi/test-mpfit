@@ -157,6 +157,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'Название',
+        'price' => 'Цена',
+        'description' => 'Описание',
+        'category_id' => 'Категория'
+    ],
 
 ];

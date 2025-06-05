@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductCreateRequest;
+use App\Http\Requests\ProductUpdateRequest;
+use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ProductController extends Controller
@@ -17,10 +19,11 @@ class ProductController extends Controller
     {
         $products = Product::query()
             ->with('category')
+            ->latest()
             ->paginate(10);
 
         return page()
-            ->title('Создать товар')
+            ->title('Товары')
             ->render('product.index', compact('products'));
     }
 
@@ -31,18 +34,25 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return page()
+            ->title('Создать товар')
+            ->render('product.form', [
+                'mode' => 'create',
+                'categories' => Category::all(),
+            ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ProductCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ProductCreateRequest $request)
     {
-        //
+        Product::create($request->validated());
+
+        return redirect()->route('product.index');
     }
 
     /**
@@ -63,24 +73,32 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        return page()
+            ->title('Редактировать '.$product->name)
+            ->render('product.form', [
+                'mode' => 'edit',
+                'product' => $product,
+                'categories' => Category::all(),
+            ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ProductUpdateRequest $request
+     * @param Product $product
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-        //
+        $product->update($request->validated());
+
+        return redirect()->route('product.show', [$product->id]);
     }
 
     /**
