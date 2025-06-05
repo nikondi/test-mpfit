@@ -14,7 +14,7 @@
     @vite(['resources/css/app.css'])
 </head>
 <body class="antialiased">
-    <header class="p-3 bg-gray-100">
+    <header class="p-3 bg-gray-100 mb-6">
         <div class="container">
             <div class="flex gap-x-3">
                 <a href="{{ route('product.index') }}" class="px-3 py-1.5 border-b {{ Route::is(['product.*', 'welcome'])?'border-blue-300':'border-gray-400' }}">Товары</a>

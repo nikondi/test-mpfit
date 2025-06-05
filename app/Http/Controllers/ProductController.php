@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -16,7 +17,7 @@ class ProductController extends Controller
     {
         $products = Product::query()
             ->with('category')
-            ->paginate(1);
+            ->paginate(10);
 
         return page()
             ->title('Создать товар')
@@ -47,12 +48,16 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        //
+        $product->load('category');
+
+        return page()
+            ->title($product->name.' | Просмотр')
+            ->render('product.show', compact('product'));
     }
 
     /**
@@ -81,11 +86,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return back();
     }
 }
