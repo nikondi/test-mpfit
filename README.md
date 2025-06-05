@@ -23,15 +23,16 @@
     ```shell
    docker compose exec backend composer install
    ```
-5. Выполнить миграцию БД 
+5. Сгенерировать ключ приложения
+
+   ```shell
+   docker compose exec backend php artisan key:generate
+   ```
+6. Выполнить миграцию БД 
     ```shell
    docker compose exec backend php artisan migrate
    ```
-6. Сгенерировать ключ приложения
 
-    ```shell
-    docker compose exec backend php artisan key:generate
-    ```
 
 Сайт будет доступен по адресу http://localhost
 
