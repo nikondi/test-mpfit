@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -13,7 +14,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::query()
+            ->with('category')
+            ->paginate(1);
+
+        return page()
+            ->title('Создать товар')
+            ->render('product.index', compact('products'));
     }
 
     /**

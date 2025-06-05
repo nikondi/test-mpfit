@@ -1,0 +1,40 @@
+.container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    padding: 7px 15px;
+    border-radius: 5px;
+    background-color: #3596dc;
+    color: #fff;
+    cursor: pointer;
+    transition: color .2s, background-color .2s;
+}
+.btn:hover {
+    background-color: #348ac9;
+}
+
+.btn--red {
+    background-color: #dc3545;
+    color: #fff;
+}
+.btn.btn--red:hover {
+    background-color: #e32132;
+}
+
+.simple-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.simple-table td,
+.simple-table th {
+    border: 1px solid #ccc;
+    padding: 4px 8px;
+}
+.simple-table th {
+    background-color: #ddd;
+    font-weight: 500;
+}
+
