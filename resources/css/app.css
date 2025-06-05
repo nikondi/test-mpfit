@@ -23,6 +23,14 @@
     background-color: #e32132;
 }
 
+.btn--green {
+    background-color: #aab023;
+    color: #fff;
+}
+.btn.btn--green:hover {
+    background-color: #8e931e;
+}
+
 .simple-table {
     width: 100%;
     border-collapse: collapse;

@@ -141,8 +141,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'final_price' => [
+            'max' => 'Сумма заказа не должна превышать :max',
         ],
     ],
 
@@ -161,7 +161,8 @@ return [
         'name' => 'Название',
         'price' => 'Цена',
         'description' => 'Описание',
-        'category_id' => 'Категория'
+        'category_id' => 'Категория',
+        'final_price' => 'Сумма заказа',
     ],
 
 ];
