@@ -1,8 +1,9 @@
 @extends('layout.default')
 
 @section('content')
-    <div class="container flex justify-end">
-        <a href="{{ route('product.create') }}" class="btn">Создать</a>
+    <div class="container flex justify-end gap-x-2">
+        <a href="{{ route('order.create') }}" class="btn">Создать заказ</a>
+        <a href="{{ route('product.create') }}" class="btn">Создать товар</a>
     </div>
     <div class="container mt-6">
         {{ $products->links() }}
