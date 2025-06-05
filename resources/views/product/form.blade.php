@@ -6,18 +6,18 @@
         <form action="{{ $mode == 'edit'?route('product.update', [$product->id]):route('product.store') }}" method="post">
             <div class="flex flex-col gap-y-2 mb-4">
                 <x-form.input name="name" label="Название" required>
-                    <input type="text" name="name" placeholder="Название" value="{{ $mode == 'edit'?$product->description:old('name') }}" required>
+                    <input type="text" name="name" placeholder="Название" value="{{ $mode == 'edit'?$product->name:old('name') }}" required>
                 </x-form.input>
 
                 <x-form.input name="price" label="Цена" required>
-                    <input type="number" step="0.01" min="0" name="price" placeholder="Цена" value="{{ $mode == 'edit'?$product->description:old('price') }}" required>
+                    <input type="number" step="0.01" min="0" name="price" placeholder="Цена" value="{{ $mode == 'edit'?$product->price:old('price') }}" required>
                 </x-form.input>
 
                 <x-form.input name="description" label="Описание">
                     <textarea name="description" placeholder="Описание">{{ $mode == 'edit'?$product->description:old('description') }}</textarea>
                 </x-form.input>
 
-                <x-form.input name="category_id" label="Категория">
+                <x-form.input name="category_id" label="Категория" required>
                     <select name="category_id" required>
                         <option value="" disabled {{ ($mode == 'create' && !old('category_id'))?'selected':'' }}>Категория</option>
                         @foreach($categories as $category)
