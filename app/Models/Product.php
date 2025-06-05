@@ -20,6 +20,8 @@ class Product extends Model
         'price' => 'float',
     ];
 
+    // ---- Связи
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
